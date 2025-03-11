@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Network Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 500;
+            font-style: normal;
+        }
+        
+        .text-xl {
+            font-size: 1.25rem;
+        }
+        
+        .font-semibold {
+            font-weight: 600;
+        }
+        
+        .font-bold {
+            font-weight: 700;
+        }
+        
+        .bg-main {
+            background-color: #1a202c;
+        }
+        
+        .bg-highlight {
+            background-color: #ffffff;
+        }
+        
+    </style>
+</head>
+
+<body class="bg-white font-sans">
+    <div class="min-h-screen flex flex-auto antialiased bg-gray-50 text-gray-800">
+        <div class="fixed top-0 left-0 w-64 bg-gray-900 h-full border-r border-gray-700 shadow-lg">
+            <div class="flex items-center justify-center h-14 border-b border-gray-700">
+                <div class="text-lg font-bold text-white">مراقبة الشبكة</div>
+            </div>
+            <div class="overflow-y-auto overflow-x-hidden flex-grow">
+                <ul class="flex flex-col py-4 space-y-1">
+                    <li class="px-5">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-400">Menu</div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="/" class="relative flex flex-row items-center h-11 hover:bg-blue-600 text-gray-200 hover:text-white border-l-4 border-transparent hover:border-blue-400 pr-6 transition duration-200">
+                            <span class="inline-flex justify-center items-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0,0,256,256">
+                              <g fill="#20c997" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.33333,5.33333)"><path d="M39.5,43h-9c-1.381,0 -2.5,-1.119 -2.5,-2.5v-9c0,-1.105 -0.895,-2 -2,-2h-4c-1.105,0 -2,0.895 -2,2v9c0,1.381 -1.119,2.5 -2.5,2.5h-9c-1.381,0 -2.5,-1.119 -2.5,-2.5v-19.087c0,-2.299 1.054,-4.471 2.859,-5.893l14.212,-11.199c0.545,-0.428 1.313,-0.428 1.857,0l14.214,11.199c1.805,1.422 2.858,3.593 2.858,5.891v19.089c0,1.381 -1.119,2.5 -2.5,2.5z"></path></g></g>
+                              </svg>                      
+                        </span>
+                            <span class="ml-2 text-sm tracking-wide truncate">الصفحة الرئيسية</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="ml-64 w-full">
+            <div class="bg-white max-w-5xl w-full grid grid-cols-1 sm:grid-cols-3 gap-6 p-4">
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-blue-600">سرعة التحميل</h3>
+                        <div class="bg-blue-100 text-blue-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v16h16M4 4l8 8m0 0l8-8m-8 8V4"
+                />
+              </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-5xl font-bold text-gray-900" id="download-speed">0</span>
+                        <span class="text-xl text-gray-500 ml-2">Mbps</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-green-600">سرعة الرفع</h3>
+                        <div class="bg-green-100 text-green-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 20V4h16m0 0l-8 8m8-8H8"
+                />
+              </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-5xl font-bold text-gray-900" id="upload-speed">0</span>
+                        <span class="text-xl text-gray-500 ml-2">Mbps</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-purple-600">زمن الاستجابة</h3>
+                        <div class="bg-purple-100 text-purple-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 20h9m-9-4h6m-6-4h3m-3-4h.01M4 5h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2z"
+                />
+              </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-5xl font-bold text-gray-900" id="ping">0</span>
+                        <span class="text-xl text-gray-500 ml-2">ms</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white max-w-5xl w-full grid grid-cols-1 sm:grid-cols-3 gap-6 p-4">
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-blue-600">عرض النطاق الترددي</h3>
+                        <div class="bg-blue-100 text-blue-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v16h16M4 4l8 8m0 0l8-8m-8 8V4" />
+                    </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-5xl font-bold text-gray-900" id="bandwidth_sent">0</span>
+                        <span class="text-xl text-gray-500 ml-2">Mbps</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-purple-600">التأخير</h3>
+                        <div class="bg-purple-100 text-purple-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9m-9-4h6m-6-4h3m-3-4h.01M4 5h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2z" />
+                    </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-5xl font-bold text-gray-900" id="latency">0</span>
+                        <span class="text-xl text-gray-500 ml-2">ms</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-red-600">فقدان الحزم</h3>
+                        <div class="bg-red-100 text-red-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12l9 9m0-9l-9 9m0-9l-9 9M4 4h16a2 2 0 012 2v16a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z" />
+                    </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-5xl font-bold text-gray-900" id="packet_loss">0</span>
+                        <span class="text-xl text-gray-500 ml-2">%</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-white max-w-5xl w-full grid grid-cols-1 sm:grid-cols-3 gap-6 p-4">
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-green-600">Private IP</h3>
+                        <div class="bg-green-100 text-green-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9m-9-4h6m-6-4h3m-3-4h.01M4 5h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-baseline">
+                            <span class="text-4xl font-bold text-gray-900" id="private_ip">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-green-600">Public IP</h3>
+                        <div class="bg-green-100 text-green-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9m-9-4h6m-6-4h3m-3-4h.01M4 5h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-baseline">
+                            <span class="text-4xl font-bold text-gray-900" id="public_ip">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-indigo-600">الأجهزة المتصلة</h3>
+                        <div class="bg-indigo-100 text-indigo-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v16h16M4 4l8 8m0 0l8-8m-8 8V4" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-4xl font-bold text-gray-900" id="connected_devices">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white max-w-5xl w-full grid grid-cols-1 sm:grid-cols-3 gap-6 p-4">
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-teal-600">عدد المسارات</h3>
+                        <div class="bg-teal-100 text-teal-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2 2 4-4m4 4l2-2 4 4" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-4xl font-bold text-gray-900" id="ipv4_routing_table">Loading...</span>
+                        <span class="text-xl text-gray-500 ml-2">مسار</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-indigo-600">عنوان الشبكة</h3>
+                        <div class="bg-indigo-100 text-indigo-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12h2m-2-2h-4m2 2h-2m-2 0v2m0 0v-2m0 2H6m-4 0H2" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-4xl font-bold text-gray-900" id="network_address"></span>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:scale-105">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-orange-600">البوابة الافتراضية</h3>
+                        <div class="bg-orange-100 text-orange-600 p-2 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 9l7-7 7 7m-7-7v18" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-baseline">
+                        <span class="text-4xl font-bold text-gray-900" id="default_gateway"></span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="bg-white p-8 mb-8">
+                <div class="bg-white rounded-xl shadow-xl p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">IPv4 جدول التوجيه</h2>
+                    <div class="flex flex-col">
+                        <div class="-m-1.5 overflow-x-auto">
+                            <div class="p-1.5 min-w-full inline-block align-middle">
+                                <div class="overflow-hidden">
+                                    <table class="min-w-full">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Network Destination</th>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Netmask</th>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Gateway</th>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Interface</th>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Metric</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                                            {% for route in ipv4_routing_table %}
+                                            <tr>
+                                                <td class="px-6 py-4 text-center text-sm font-medium text-gray-800 dark:text-neutral-200">{{ route.destination }}</td>
+                                                <td class="px-6 py-4 text-center text-sm text-gray-800 dark:text-neutral-200">{{ route.netmask }}</td>
+                                                <td class="px-6 py-4 text-center text-sm text-gray-800 dark:text-neutral-200">{{ route.gateway }}</td>
+                                                <td class="px-6 py-4 text-center text-sm text-gray-800 dark:text-neutral-200">{{ route.interface }}</td>
+                                                <td class="px-6 py-4 text-center text-sm text-gray-800 dark:text-neutral-200">{{ route.metric }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="bg-white rounded-xl shadow-xl p-8 mb-8">
+                    <h2 class="text-2xl font-semibold text-gray-900 mb-6">الأجهزة المتصلة</h2>
+                    <div class="flex flex-col">
+                        <div class="-m-1.5 overflow-x-auto">
+                            <div class="p-1.5 min-w-full inline-block align-middle">
+                                <div class="overflow-hidden">
+                                    <table class="min-w-full">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Device Name</th>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">IP Address</th>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">MAC Address</th>
+                                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                                            {% for device in connected_devices %}
+                                            <tr>
+                                                <td class="px-6 py-4 text-center text-sm font-medium text-gray-800 dark:text-neutral-200">{{ device.name }}</td>
+                                                <td class="px-6 py-4 text-center text-sm text-gray-800 dark:text-neutral-200">{{ device.ip }}</td>
+                                                <td class="px-6 py-4 text-center text-sm text-gray-800 dark:text-neutral-200">{{ device.mac }}</td>
+                                                <td class="px-6 py-4 text-center text-sm text-gray-800 dark:text-neutral-200">
+                                                    <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 bg-red-100 text-red-800"> {{ device.status }}</span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="bg-white rounded-xl shadow-xl p-8 mb-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">Captured Packets</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Source IP</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Destination IP</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Protocol</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            {% for packet in captured_packets %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-900">{{ packet.source_ip }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-900">{{ packet.destination_ip }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-900">{{ packet.protocol }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-900">{{ packet.size }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">{{ packet.timestamp }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>    
+        </div> 
+        
+        
+        <script>
+            setInterval(function() {
+                fetch('/speed_data')
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('download-speed').innerText = data.download_speed;
+                        document.getElementById('upload-speed').innerText = data.upload_speed;
+                        document.getElementById('ping').innerText = data.ping;
+                        document.getElementById('bandwidth_sent').innerText = data.bandwidth_sent;
+                        document.getElementById('latency').innerText = data.latency;
+                        document.getElementById('packet_loss').innerText = data.packet_loss;
+                        document.getElementById('private_ip').innerText = data.private_ip;
+                        document.getElementById('public_ip').innerText = data.public_ip;
+                        document.getElementById('network_address').innerText = data.network_address;
+                        document.getElementById('default_gateway').innerText = data.default_gateway;
+                        document.getElementById('connected_devices').innerText = data.connected_devices;
+                        document.getElementById('ipv4_routing_table').innerText = data.ipv4_routing_table;
+        
+                    });
+            }, 2000);
+        </script>
+</body>
+
+</html>
